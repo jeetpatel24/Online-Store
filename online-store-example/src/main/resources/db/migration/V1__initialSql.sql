@@ -48,7 +48,7 @@ create table order_table
     purchase_item_id int
         constraint order_table_purchase_item_table_id_fk
             references purchase_item_table,
-    component text
+    comment text
 );
 
 
