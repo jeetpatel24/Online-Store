@@ -26,17 +26,6 @@ create table user_table
 create unique index user_table_email_uindex
 	on user_table (email);
 
-create table purchase_item_table
-(
-    id serial
-        constraint purchase_item_table_pk
-            primary key,
-    product_id int
-        constraint purchase_item_table_product_table_id_fk
-            references product_table,
-    count int default 1
-);
-
 create table order_table
 (
     id serial
@@ -45,10 +34,23 @@ create table order_table
     user_id int
         constraint order_table_user_table_id_fk
             references user_table,
-    purchase_item_id int
-        constraint order_table_purchase_item_table_id_fk
-            references purchase_item_table,
     comment text
 );
+
+
+create table purchase_item_table
+(
+    id serial
+        constraint purchase_item_table_pk
+            primary key,
+    product_id int
+        constraint purchase_item_table_product_table_id_fk
+            references product_table,
+    count int default 1,
+    order_id int not null
+        constraint purchase_item_table_order_table_id_fk
+            references order_table
+);
+
 
 
